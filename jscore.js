@@ -1,4 +1,4 @@
-function handle_map_click(event) {
+function handle_map_click(event, HEX_SCALED_HEIGHT,HEX_SIDE) {
     // ----------------------------------------------------------------------
     // --- This function gets a mouse click on the map, converts the click to
     // --- hex map coordinates, then moves the highlight image to be over the
@@ -34,7 +34,7 @@ function handle_map_click(event) {
     // --- Convert mouse click to hex grid coordinate
     // --- Code is from http://www-cs-students.stanford.edu/~amitp/Articles/GridToHex.html
     // ----------------------------------------------------------------------
-    var hex_height = <?php echo $HEX_SCALED_HEIGHT; ?>;
+    var hex_height = HEX_SCALED_HEIGHT;
     x = (posx - (hex_height/2)) / (hex_height * 0.75);
     y = (posy - (hex_height/2)) / hex_height;
     z = -0.5 * x - y;
@@ -67,8 +67,8 @@ function handle_map_click(event) {
     // --- Calculate coordinates of this hex.  We will use this
     // --- to place the highlight image.
     // ----------------------------------------------------------------------
-    tx = map_x * <?php echo $HEX_SIDE ?> * 1.5;
-    ty = map_y * <?php echo $HEX_SCALED_HEIGHT ?> + (map_x % 2) * (<?php echo $HEX_SCALED_HEIGHT ?> / 2);
+    tx = map_x * HEX_SIDE * 1.5;
+    ty = map_y * HEX_SCALED_HEIGHT + (map_x % 2) * (HEX_SCALED_HEIGHT / 2);
 
     // ----------------------------------------------------------------------
     // --- Get the highlight image by ID
