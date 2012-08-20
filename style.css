@@ -1,0 +1,27 @@
+body {
+	/* 
+	margin: 0;
+	padding: 0;
+	*/
+}
+
+.hexmap {
+	width: <?php echo $MAP_WIDTH * $HEX_SIDE * 1.5 + $HEX_SIDE/2; ?>px;
+	height: <?php echo $MAP_HEIGHT * $HEX_SCALED_HEIGHT + $HEX_SIDE; ?>px;
+	position: relative;
+	background: #000;
+}
+
+.hex-key-element {
+	width: <?php echo $HEX_HEIGHT * 1.5; ?>px;
+	height: <?php echo $HEX_HEIGHT * 1.5; ?>px;
+	border: 1px solid #fff;
+	float: left;
+	text-align: center;
+}
+
+.hex {
+	position: absolute;
+	width: <?php echo $HEX_SCALED_HEIGHT ?>;
+	height: <?php echo $HEX_SCALED_HEIGHT ?>;
+}
