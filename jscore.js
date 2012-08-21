@@ -1,3 +1,5 @@
+var highlight = document.getElementById('highlight');
+		highlight.style.visibility = "hidden";
 function handle_map_click(event, HEX_SCALED_HEIGHT,HEX_SIDE) {
     // ----------------------------------------------------------------------
     // --- This function gets a mouse click on the map, converts the click to
@@ -80,4 +82,5 @@ function handle_map_click(event, HEX_SCALED_HEIGHT,HEX_SIDE) {
     // ----------------------------------------------------------------------
     highlight.style.left = tx + 'px';
     highlight.style.top = ty + 'px';
+	highlight.style.visibility = "visible";
 }

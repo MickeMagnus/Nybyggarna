@@ -19,7 +19,8 @@ $terrain_images = array("grass"    => "pictures/grass-r1.png",
 						"mountain" => "pictures/mountain-tile.png",
 						"field"	   => "pictures/savanna2.png",
 						"plain"    => "pictures/vete.png",
-						"black"    => "pictures/black.png");
+						"black"    => "pictures/black.png",
+						"numberb"  => "pictures/numberback.png");
 
 function generate_map_data() {
 	global $MAP_WIDTH, $MAP_HEIGHT;
@@ -97,6 +98,32 @@ function render_map_to_html() {
 	// -------------------------------------------------------------
 	for ($x=0; $x<$MAP_WIDTH; $x++) {
 		for ($y=0; $y<$MAP_HEIGHT; $y++) {
+			if ($map[$x][$y] != "water")
+			{
+				// --- Terrain type in this hex
+				$terrain = "numberb";
+				// --- Image to draw
+				$img = $terrain_images[$terrain];
+				// --- Coordinates to place hex on the screen
+				$tx = $x * $HEX_SIDE * 1.5;
+				$ty = $y * $HEX_SCALED_HEIGHT + ($x % 2) * $HEX_SCALED_HEIGHT / 2;
+				// --- Style values to position hex image in the right location
+				$style = sprintf("left:%dpx;top:%dpx", $tx, $ty);
+				// --- Output the image tag for this hex
+				print "<img src='$img' alt='$terrain' class='hex' style='zindex:100;$style'>\n";
+				
+			}
+		}
+	}
+}
+
+function render_mapnumber_to_html() {
+	global $MAP_WIDTH, $MAP_HEIGHT;
+	global $HEX_HEIGHT, $HEX_SCALED_HEIGHT, $HEX_SIDE;
+	global $map, $terrain_images;
+	
+	for ($x=0; $x<$MAP_WIDTH; $x++) {
+		for ($y=0; $y<$MAP_HEIGHT; $y++) {
 			// --- Terrain type in this hex
 			$terrain = $map[$x][$y];
 			// --- Image to draw
@@ -107,11 +134,10 @@ function render_map_to_html() {
 			// --- Style values to position hex image in the right location
 			$style = sprintf("left:%dpx;top:%dpx", $tx, $ty);
 			// --- Output the image tag for this hex
-			print "<img src='$img' alt='$terrain' class='hex' style='zindex:99;$style'>\n";
+			print "<img src='$img' alt='$terrain' class='hex' style='zindex:100;$style'>\n";
 		}
 	}
 }
-
 generate_map_data();
 ?>
 
@@ -123,9 +149,13 @@ generate_map_data();
     </head>
     <body>
     
-    <div id='hexmap' class='hexmap' onclick='handle_map_click(event,<?php print $HEX_SCALED_HEIGHT ?>,<?php print $HEX_SIDE ?>);'>
-        <?php render_map_to_html(); ?>
-        <img id='highlight' class='hex' src='pictures/hex-highlight.png' style='zindex:100;'>
+    <div id='hexmap' class='hexmap'>
+        <?php render_mapnumber_to_html(); ?> 
+        <img id='highlight' class='hex' src='pictures/hex-highlight.png' style='visibility:hidden;'>
+    </div>
+    <div  class='hexmapnumber' onclick='handle_map_click(event,<?php print $HEX_SCALED_HEIGHT ?>,<?php print $HEX_SIDE ?>);'>
+    <br>
+    	<?php render_map_to_html(); ?>
     </div>
 </body>
 </html>
